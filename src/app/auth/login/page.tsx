@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Loader2 } from 'lucide-react';
+import { Calendar, Loader2, AlertCircle } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,10 +23,18 @@ export default function LoginPage() {
     setError('');
 
     try {
-      await signIn(email, password);
-      router.push('/dashboard');
+      const result = await signIn(email, password);
+      
+      if (result && result.user) {
+        // Sucesso - redirecionar para dashboard
+        router.push('/dashboard');
+        router.refresh();
+      } else {
+        setError('Erro ao fazer login. Tente novamente.');
+      }
     } catch (err: any) {
-      setError(err.message || 'Erro ao fazer login');
+      console.error('Erro no login:', err);
+      setError(err.message || 'Erro ao fazer login. Verifique suas credenciais.');
     } finally {
       setLoading(false);
     }
@@ -49,8 +57,9 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {error && (
-              <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg">
-                {error}
+              <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+                <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <span>{error}</span>
               </div>
             )}
             <div className="space-y-2">
@@ -63,6 +72,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="h-11"
+                disabled={loading}
               />
             </div>
             <div className="space-y-2">
@@ -75,6 +85,8 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="h-11"
+                disabled={loading}
+                minLength={6}
               />
             </div>
           </CardContent>
