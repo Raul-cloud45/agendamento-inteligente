@@ -22,18 +22,50 @@ export async function signUp(email: string, password: string, professionalName: 
         .replace(/(^-|-$)/g, '');
 
       // Criar perfil profissional
-      const { error: profileError } = await supabase
+      const { data: professional, error: profileError } = await supabase
         .from('professionals')
         .insert({
           user_id: authData.user.id,
           business_name: businessName,
           professional_name: professionalName,
           slug: `${slug}-${Date.now().toString(36)}`,
-        });
+        })
+        .select()
+        .single();
 
       if (profileError) {
         console.error('Erro ao criar perfil:', profileError);
         throw new Error('Erro ao criar perfil profissional');
+      }
+
+      // Criar assinatura trial de 7 dias
+      if (professional) {
+        // Buscar o plano Profissional (mais popular)
+        const { data: plans } = await supabase
+          .from('subscription_plans')
+          .select('*')
+          .eq('name', 'Profissional')
+          .single();
+
+        if (plans) {
+          const trialEndsAt = new Date();
+          trialEndsAt.setDate(trialEndsAt.getDate() + 7);
+
+          const currentPeriodEnd = new Date();
+          currentPeriodEnd.setMonth(currentPeriodEnd.getMonth() + 1);
+
+          await supabase
+            .from('professional_subscriptions')
+            .insert({
+              professional_id: professional.id,
+              plan_id: plans.id,
+              billing_cycle: 'monthly',
+              status: 'trial',
+              trial_ends_at: trialEndsAt.toISOString(),
+              current_period_start: new Date().toISOString(),
+              current_period_end: currentPeriodEnd.toISOString(),
+            });
+        }
       }
     }
 
@@ -118,5 +150,28 @@ export async function getProfessionalProfile(userId: string) {
   } catch (error) {
     console.error('Erro geral ao buscar perfil:', error);
     throw error;
+  }
+}
+
+export async function getProfessionalSubscription(professionalId: string) {
+  try {
+    const { data, error } = await supabase
+      .from('professional_subscriptions')
+      .select(`
+        *,
+        plan:subscription_plans(*)
+      `)
+      .eq('professional_id', professionalId)
+      .single();
+
+    if (error) {
+      console.error('Erro ao buscar assinatura:', error);
+      return null;
+    }
+    
+    return data;
+  } catch (error) {
+    console.error('Erro geral ao buscar assinatura:', error);
+    return null;
   }
 }

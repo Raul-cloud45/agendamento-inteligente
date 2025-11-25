@@ -104,3 +104,36 @@ export interface ClientRecovery {
   updated_at: string;
   client?: Client;
 }
+
+export interface SubscriptionPlan {
+  id: string;
+  name: string;
+  description?: string;
+  price_monthly: number;
+  price_yearly: number;
+  features: string[];
+  max_appointments_per_month?: number;
+  max_clients?: number;
+  max_services?: number;
+  whatsapp_integration: boolean;
+  ai_messages: boolean;
+  priority_support: boolean;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ProfessionalSubscription {
+  id: string;
+  professional_id: string;
+  plan_id: string;
+  billing_cycle: 'monthly' | 'yearly';
+  status: 'trial' | 'active' | 'cancelled' | 'expired';
+  trial_ends_at?: string;
+  current_period_start: string;
+  current_period_end: string;
+  cancelled_at?: string;
+  created_at: string;
+  updated_at: string;
+  plan?: SubscriptionPlan;
+}

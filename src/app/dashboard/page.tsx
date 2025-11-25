@@ -2,16 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getCurrentUser, getProfessionalProfile, signOut } from '@/lib/auth';
+import { getCurrentUser, getProfessionalProfile, getProfessionalSubscription, signOut } from '@/lib/auth';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Users, MessageSquare, TrendingUp, Settings, LogOut, Loader2 } from 'lucide-react';
-import type { Professional } from '@/lib/types';
+import { Calendar, Users, MessageSquare, TrendingUp, Settings, LogOut, Loader2, Sparkles, Crown } from 'lucide-react';
+import type { Professional, ProfessionalSubscription } from '@/lib/types';
 
 export default function DashboardPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [professional, setProfessional] = useState<Professional | null>(null);
+  const [subscription, setSubscription] = useState<ProfessionalSubscription | null>(null);
 
   useEffect(() => {
     async function loadProfile() {
@@ -24,6 +25,11 @@ export default function DashboardPage() {
 
         const profile = await getProfessionalProfile(user.id);
         setProfessional(profile);
+
+        if (profile) {
+          const sub = await getProfessionalSubscription(profile.id);
+          setSubscription(sub);
+        }
       } catch (error) {
         console.error('Erro ao carregar perfil:', error);
         router.push('/auth/login');
@@ -40,6 +46,15 @@ export default function DashboardPage() {
     router.push('/');
   };
 
+  const getTrialDaysRemaining = () => {
+    if (!subscription?.trial_ends_at) return 0;
+    const trialEnd = new Date(subscription.trial_ends_at);
+    const now = new Date();
+    const diffTime = trialEnd.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return Math.max(0, diffDays);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -47,6 +62,8 @@ export default function DashboardPage() {
       </div>
     );
   }
+
+  const trialDays = getTrialDaysRemaining();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -73,12 +90,60 @@ export default function DashboardPage() {
         </div>
       </header>
 
+      {/* Trial Banner */}
+      {subscription?.status === 'trial' && trialDays > 0 && (
+        <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-5 h-5" />
+                <span className="font-medium">
+                  Você está no período de teste grátis! {trialDays} {trialDays === 1 ? 'dia restante' : 'dias restantes'}
+                </span>
+              </div>
+              <Button size="sm" variant="secondary" className="bg-white text-green-600 hover:bg-gray-100">
+                Ver Planos
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">Bem-vindo de volta! 👋</h2>
           <p className="text-gray-600">Aqui está um resumo do seu negócio hoje</p>
         </div>
+
+        {/* Subscription Card */}
+        {subscription && (
+          <Card className="mb-8 border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                    <Crown className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl">
+                      Plano {subscription.plan?.name}
+                    </CardTitle>
+                    <CardDescription>
+                      {subscription.status === 'trial' 
+                        ? `Teste grátis - ${trialDays} dias restantes`
+                        : `Ciclo ${subscription.billing_cycle === 'monthly' ? 'mensal' : 'anual'}`
+                      }
+                    </CardDescription>
+                  </div>
+                </div>
+                <Button variant="outline" className="border-purple-300 hover:bg-purple-100">
+                  Gerenciar Plano
+                </Button>
+              </div>
+            </CardHeader>
+          </Card>
+        )}
 
         {/* Stats Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

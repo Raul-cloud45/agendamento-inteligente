@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, Loader2, AlertCircle } from 'lucide-react';
+import { Calendar, Loader2, AlertCircle, Lock } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -26,7 +26,6 @@ export default function LoginPage() {
       const result = await signIn(email, password);
       
       if (result && result.user) {
-        // Sucesso - redirecionar para dashboard
         router.push('/dashboard');
         router.refresh();
       } else {
@@ -48,7 +47,7 @@ export default function LoginPage() {
             <Calendar className="w-8 h-8 text-white" />
           </div>
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            AgendaPro
+            Bem-vindo de volta
           </CardTitle>
           <CardDescription className="text-base">
             Entre na sua conta para gerenciar seus agendamentos
@@ -62,6 +61,7 @@ export default function LoginPage() {
                 <span>{error}</span>
               </div>
             )}
+            
             <div className="space-y-2">
               <Label htmlFor="email">E-mail</Label>
               <Input
@@ -75,8 +75,14 @@ export default function LoginPage() {
                 disabled={loading}
               />
             </div>
+            
             <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Senha</Label>
+                <Link href="/auth/forgot-password" className="text-xs text-blue-600 hover:text-blue-700">
+                  Esqueceu a senha?
+                </Link>
+              </div>
               <Input
                 id="password"
                 type="password"
@@ -89,7 +95,15 @@ export default function LoginPage() {
                 minLength={6}
               />
             </div>
+
+            <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <Lock className="w-4 h-4 text-blue-600 flex-shrink-0" />
+              <p className="text-xs text-blue-700">
+                Seus dados estão protegidos com criptografia de ponta a ponta
+              </p>
+            </div>
           </CardContent>
+          
           <CardFooter className="flex flex-col space-y-4">
             <Button
               type="submit"
@@ -102,15 +116,32 @@ export default function LoginPage() {
                   Entrando...
                 </>
               ) : (
-                'Entrar'
+                'Entrar na Conta'
               )}
             </Button>
-            <div className="text-center text-sm text-gray-600">
-              Não tem uma conta?{' '}
-              <Link href="/auth/register" className="text-blue-600 hover:text-blue-700 font-medium">
-                Cadastre-se grátis
-              </Link>
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-2 text-gray-500">Novo por aqui?</span>
+              </div>
             </div>
+            
+            <Link href="/auth/register" className="w-full">
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full h-11 border-2 hover:bg-gray-50"
+              >
+                Criar Conta Grátis
+              </Button>
+            </Link>
+            
+            <p className="text-xs text-center text-gray-500">
+              7 dias grátis • Cancele quando quiser • Sem compromisso
+            </p>
           </CardFooter>
         </form>
       </Card>

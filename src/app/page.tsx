@@ -23,12 +23,17 @@ export default function HomePage() {
             </span>
           </div>
           <div className="flex gap-3">
+            <Link href="/pricing">
+              <Button variant="ghost" className="font-medium">
+                Planos
+              </Button>
+            </Link>
             <Link href="/auth/login">
               <Button variant="ghost" className="font-medium">
                 Entrar
               </Button>
             </Link>
-            <Link href="/auth/register">
+            <Link href="/pricing">
               <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium shadow-lg">
                 Começar Grátis
               </Button>
@@ -40,9 +45,9 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 md:py-32">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium">
             <Sparkles className="w-4 h-4" />
-            Sistema com Inteligência Artificial
+            7 Dias Grátis - Teste Sem Compromisso
           </div>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
             Agendamento Inteligente com{' '}
@@ -54,15 +59,20 @@ export default function HomePage() {
             Automatize confirmações, recupere clientes sumidos e evite faltas com mensagens personalizadas por IA
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Link href="/auth/register">
+            <Link href="/pricing">
               <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium shadow-xl h-14 px-8 text-lg">
-                Começar Agora - Grátis
+                Começar Agora
               </Button>
             </Link>
-            <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-medium">
-              Ver Demonstração
-            </Button>
+            <Link href="/pricing">
+              <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-medium">
+                Ver Planos e Preços
+              </Button>
+            </Link>
           </div>
+          <p className="text-sm text-gray-500">
+            ✓ 7 dias grátis ✓ Cancele quando quiser ✓ Suporte dedicado
+          </p>
         </div>
       </section>
 
@@ -130,6 +140,177 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Pricing Preview */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Planos para todos os tamanhos
+          </h2>
+          <p className="text-xl text-gray-600">
+            Comece grátis por 7 dias. Escolha o melhor plano para você.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-12">
+          {/* Plano Básico */}
+          <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-center hover:shadow-xl transition-all">
+            <h3 className="text-2xl font-bold mb-2">Básico</h3>
+            <div className="mb-2">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-gray-400 line-through text-lg">R$ 49,90</span>
+              </div>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-bold text-blue-600">R$ 39,90</span>
+                <span className="text-gray-600">/mês</span>
+              </div>
+            </div>
+            <div className="mb-6">
+              <span className="text-sm text-green-600 font-semibold">Economize R$ 120/ano</span>
+              <div className="text-xs text-gray-500 mt-1">ou R$ 479,88/ano</div>
+            </div>
+            <p className="text-gray-600 mb-6">Ideal para começar</p>
+            <ul className="space-y-3 text-left mb-8">
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Até 100 agendamentos/mês</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Até 200 clientes</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">WhatsApp automático</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Confirmações e lembretes</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Relatórios básicos</span>
+              </li>
+            </ul>
+            <Link href="/pricing?plan=basic">
+              <Button className="w-full" variant="outline">
+                Escolher Plano
+              </Button>
+            </Link>
+          </div>
+
+          {/* Plano Profissional */}
+          <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-8 rounded-2xl shadow-2xl text-white text-center transform scale-105 relative">
+            <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-yellow-400 text-gray-900 text-sm font-bold rounded-full">
+              MAIS POPULAR
+            </div>
+            <h3 className="text-2xl font-bold mb-2">Profissional</h3>
+            <div className="mb-2">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-white/60 line-through text-lg">R$ 79,90</span>
+              </div>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-bold">R$ 59,90</span>
+                <span className="text-white/90">/mês</span>
+              </div>
+            </div>
+            <div className="mb-6">
+              <span className="text-sm text-yellow-300 font-semibold">Economize R$ 240/ano</span>
+              <div className="text-xs text-white/70 mt-1">ou R$ 718,80/ano</div>
+            </div>
+            <p className="text-white/90 mb-6">Para crescimento</p>
+            <ul className="space-y-3 text-left mb-8">
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+                <span className="text-sm">Agendamentos ilimitados</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+                <span className="text-sm">Clientes ilimitados</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+                <span className="text-sm">Mensagens com IA</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+                <span className="text-sm">Recuperação de clientes</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+                <span className="text-sm">Relatórios avançados</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-white flex-shrink-0" />
+                <span className="text-sm">Suporte prioritário</span>
+              </li>
+            </ul>
+            <Link href="/pricing?plan=professional">
+              <Button className="w-full bg-white text-blue-600 hover:bg-gray-100 font-bold">
+                Escolher Plano
+              </Button>
+            </Link>
+          </div>
+
+          {/* Plano Premium */}
+          <div className="bg-white p-8 rounded-2xl shadow-lg border-2 border-purple-200 text-center hover:shadow-xl transition-all">
+            <h3 className="text-2xl font-bold mb-2">Premium</h3>
+            <div className="mb-2">
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-gray-400 line-through text-lg">R$ 149,90</span>
+              </div>
+              <div className="flex items-baseline justify-center gap-1">
+                <span className="text-4xl font-bold text-purple-600">R$ 127,90</span>
+                <span className="text-gray-600">/mês</span>
+              </div>
+            </div>
+            <div className="mb-6">
+              <span className="text-sm text-green-600 font-semibold">Economize R$ 264/ano</span>
+              <div className="text-xs text-gray-500 mt-1">ou R$ 1.534,80/ano</div>
+            </div>
+            <p className="text-gray-600 mb-6">Solução completa</p>
+            <ul className="space-y-3 text-left mb-8">
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Tudo do Profissional</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Multi-profissionais (até 5)</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">API de integração</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">White label (sua marca)</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Suporte VIP 24/7</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                <span className="text-sm">Treinamento personalizado</span>
+              </li>
+            </ul>
+            <Link href="/pricing?plan=premium">
+              <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold">
+                Escolher Plano
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Link href="/pricing">
+            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium shadow-xl h-14 px-10 text-lg">
+              Ver Comparação Completa
+            </Button>
+          </Link>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl">
@@ -139,11 +320,14 @@ export default function HomePage() {
           <p className="text-xl mb-8 opacity-90">
             Junte-se a centenas de profissionais que já automatizaram seus agendamentos
           </p>
-          <Link href="/auth/register">
+          <Link href="/pricing">
             <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 font-bold h-14 px-10 text-lg shadow-xl">
-              Criar Conta Grátis
+              Começar Agora
             </Button>
           </Link>
+          <p className="text-sm mt-4 opacity-75">
+            7 dias grátis • Cancele quando quiser
+          </p>
         </div>
       </section>
 
