@@ -3,8 +3,8 @@ import "@fontsource/inter";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AgendaPro - Sistema de Agendamento Inteligente",
-  description: "Sistema completo de agendamento com IA, confirmação automática por WhatsApp e recuperação de clientes",
+  title: "AgendAI Pro - Sistema Inteligente de Agendamentos",
+  description: "Sistema completo de agendamento com IA, confirmação automática por WhatsApp e recuperação de clientes. Ideal para profissionais de beleza, saúde e serviços.",
 };
 
 export default function RootLayout({

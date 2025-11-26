@@ -1,139 +1,86 @@
-export interface Professional {
-  id: string;
-  user_id: string;
-  business_name: string;
-  professional_name: string;
-  slug: string;
-  phone?: string;
-  address?: string;
-  created_at: string;
-  updated_at: string;
-}
+// Tipos do AgendAI Pro
 
-export interface ProfessionalSettings {
+export interface User {
   id: string;
-  professional_id: string;
-  working_days: string[];
-  working_hours: {
-    start: string;
-    end: string;
-  };
-  slot_duration: number;
-  min_time_between_slots: number;
-  auto_confirm: boolean;
-  created_at: string;
-  updated_at: string;
+  name: string;
+  email: string;
+  phone: string;
+  avatar?: string;
+  businessName: string;
+  businessType: string;
+  plan: 'basic' | 'professional' | 'premium';
+  createdAt: Date;
 }
 
 export interface Service {
   id: string;
-  professional_id: string;
   name: string;
-  description?: string;
+  description: string;
+  duration: number; // em minutos
   price: number;
-  duration: number;
-  active: boolean;
-  created_at: string;
-  updated_at: string;
+  image?: string;
+  available: boolean;
+  color: string;
 }
 
 export interface Client {
   id: string;
-  professional_id: string;
   name: string;
-  phone: string;
-  whatsapp?: string;
   email?: string;
-  birthday?: string;
+  phone: string;
+  avatar?: string;
+  totalAppointments: number;
+  totalSpent: number;
+  lastVisit?: Date;
   notes?: string;
-  status: 'active' | 'inactive' | 'recovered';
-  last_visit?: string;
-  total_visits: number;
-  created_at: string;
-  updated_at: string;
+  noShowCount: number;
+  createdAt: Date;
 }
 
 export interface Appointment {
   id: string;
-  professional_id: string;
-  client_id: string;
-  service_id?: string;
-  appointment_date: string;
-  appointment_time: string;
-  status: 'pending' | 'confirmed' | 'cancelled' | 'completed' | 'no_show';
+  clientId: string;
+  client: Client;
+  serviceId: string;
+  service: Service;
+  date: Date;
+  startTime: string;
+  endTime: string;
+  status: 'pending' | 'confirmed' | 'completed' | 'cancelled' | 'no-show';
   notes?: string;
-  created_at: string;
-  updated_at: string;
-  client?: Client;
-  service?: Service;
+  reminderSent: boolean;
+  confirmationSent: boolean;
+  createdAt: Date;
 }
 
-export interface AutomatedMessage {
-  id: string;
-  professional_id: string;
-  client_id: string;
-  appointment_id?: string;
-  message_type: 'confirmation' | 'reminder_24h' | 'reminder_2h' | 'feedback' | 'recovery' | 'birthday';
-  message_content: string;
-  sent_at: string;
-  status: 'sent' | 'delivered' | 'failed';
-  created_at: string;
+export interface DashboardStats {
+  todayRevenue: number;
+  monthRevenue: number;
+  todayAppointments: number;
+  monthAppointments: number;
+  activeClients: number;
+  noShowRate: number;
+  topServices: Array<{
+    service: Service;
+    count: number;
+    revenue: number;
+  }>;
+  topClients: Array<{
+    client: Client;
+    count: number;
+    revenue: number;
+  }>;
 }
 
-export interface MessageTemplate {
-  id: string;
-  professional_id: string;
-  template_type: string;
-  template_content: string;
-  tone: 'formal' | 'casual' | 'friendly' | 'professional';
-  active: boolean;
-  created_at: string;
-  updated_at: string;
+export interface TimeSlot {
+  time: string;
+  available: boolean;
+  appointmentId?: string;
 }
 
-export interface ClientRecovery {
-  id: string;
-  professional_id: string;
-  client_id: string;
-  days_since_last_visit: number;
-  message_sent?: string;
-  sent_at?: string;
-  response_received: boolean;
-  returned: boolean;
-  created_at: string;
-  updated_at: string;
-  client?: Client;
-}
-
-export interface SubscriptionPlan {
-  id: string;
-  name: string;
-  description?: string;
-  price_monthly: number;
-  price_yearly: number;
-  features: string[];
-  max_appointments_per_month?: number;
-  max_clients?: number;
-  max_services?: number;
-  whatsapp_integration: boolean;
-  ai_messages: boolean;
-  priority_support: boolean;
-  active: boolean;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface ProfessionalSubscription {
-  id: string;
-  professional_id: string;
-  plan_id: string;
-  billing_cycle: 'monthly' | 'yearly';
-  status: 'trial' | 'active' | 'cancelled' | 'expired';
-  trial_ends_at?: string;
-  current_period_start: string;
-  current_period_end: string;
-  cancelled_at?: string;
-  created_at: string;
-  updated_at: string;
-  plan?: SubscriptionPlan;
+export interface BusinessHours {
+  dayOfWeek: number; // 0-6 (domingo-sábado)
+  isOpen: boolean;
+  openTime: string;
+  closeTime: string;
 }

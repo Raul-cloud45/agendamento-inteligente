@@ -25,8 +25,8 @@ export default function PricingPage() {
       id: 'basic',
       name: 'Básico',
       description: 'Ideal para começar',
-      priceMonthly: 49.90,
-      priceYearly: 39.90,
+      priceMonthly: 39.90,
+      priceYearly: 33.83,
       color: 'from-blue-500 to-cyan-500',
       features: [
         'Agendamento online 24/7',
@@ -39,11 +39,11 @@ export default function PricingPage() {
       popular: false,
     },
     {
-      id: 'professional',
-      name: 'Profissional',
+      id: 'pro',
+      name: 'Pro',
       description: 'Para profissionais em crescimento',
-      priceMonthly: 79.90,
-      priceYearly: 59.90,
+      priceMonthly: 49.90,
+      priceYearly: 39.92,
       color: 'from-purple-500 to-pink-500',
       features: [
         'Tudo do plano Básico',
@@ -62,11 +62,11 @@ export default function PricingPage() {
       id: 'premium',
       name: 'Premium',
       description: 'Solução completa para seu negócio',
-      priceMonthly: 149.90,
-      priceYearly: 127.90,
+      priceMonthly: 54.90,
+      priceYearly: 41.08,
       color: 'from-orange-500 to-red-500',
       features: [
-        'Tudo do plano Profissional',
+        'Tudo do plano Pro',
         'Serviços ilimitados',
         'Multi-profissionais',
         'API personalizada',
@@ -93,7 +93,8 @@ export default function PricingPage() {
   };
 
   const handleSelectPlan = (planId: string) => {
-    router.push(`/auth/register?plan=${planId}&billing=${billingCycle}`);
+    // Redireciona direto para o checkout da Keoto para o plano de R$ 49,90
+    window.location.href = 'https://checkout.keoto.com/339de384-fea4-4c7f-894b-db638a95fae5';
   };
 
   return (
@@ -106,7 +107,7 @@ export default function PricingPage() {
               <Calendar className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              AgendaPro
+              AgendAI Pro
             </span>
           </Link>
           <div className="flex gap-3">
@@ -191,7 +192,7 @@ export default function PricingPage() {
                     </span>
                     <span className="text-gray-600">/{billingCycle === 'monthly' ? 'mês' : 'mês'}</span>
                   </div>
-                  {billingCycle === 'yearly' && (
+                  {billingCycle === 'yearly' && getSavings(plan) > 0 && (
                     <div className="mt-2 space-y-1">
                       <p className="text-sm text-green-600 font-medium">
                         Economize {getSavings(plan)}% no plano anual
@@ -216,11 +217,7 @@ export default function PricingPage() {
                 </div>
                 <Button
                   onClick={() => handleSelectPlan(plan.id)}
-                  className={`w-full h-12 text-base font-semibold ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg'
-                      : 'bg-white border-2 border-gray-300 hover:border-gray-400 text-gray-900'
-                  }`}
+                  className={`w-full h-12 text-base font-semibold bg-gradient-to-r ${plan.color} hover:opacity-90 text-white shadow-lg`}
                 >
                   Escolher {plan.name}
                 </Button>
@@ -234,7 +231,7 @@ export default function PricingPage() {
 
         {/* Trust Section */}
         <div className="mt-20 text-center space-y-8">
-          <h3 className="text-2xl font-bold text-gray-900">Por que escolher o AgendaPro?</h3>
+          <h3 className="text-2xl font-bold text-gray-900">Por que escolher o AgendAI Pro?</h3>
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="space-y-3">
               <div className="w-12 h-12 mx-auto bg-green-100 rounded-full flex items-center justify-center">
@@ -270,7 +267,7 @@ export default function PricingPage() {
       {/* Footer */}
       <footer className="border-t bg-white py-8 mt-20">
         <div className="container mx-auto px-4 text-center text-gray-600">
-          <p>© 2024 AgendaPro. Sistema de agendamento inteligente com IA.</p>
+          <p>© 2024 AgendAI Pro. Sistema de agendamento inteligente com IA.</p>
         </div>
       </footer>
     </div>

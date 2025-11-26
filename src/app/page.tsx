@@ -19,7 +19,7 @@ export default function HomePage() {
               <Calendar className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              AgendaPro
+              AgendAI Pro
             </span>
           </div>
           <div className="flex gap-3">
@@ -157,16 +157,13 @@ export default function HomePage() {
             <h3 className="text-2xl font-bold mb-2">Básico</h3>
             <div className="mb-2">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-gray-400 line-through text-lg">R$ 49,90</span>
-              </div>
-              <div className="flex items-baseline justify-center gap-1">
                 <span className="text-4xl font-bold text-blue-600">R$ 39,90</span>
                 <span className="text-gray-600">/mês</span>
               </div>
             </div>
             <div className="mb-6">
-              <span className="text-sm text-green-600 font-semibold">Economize R$ 120/ano</span>
-              <div className="text-xs text-gray-500 mt-1">ou R$ 479,88/ano</div>
+              <span className="text-sm text-green-600 font-semibold">15% desconto anual</span>
+              <div className="text-xs text-gray-500 mt-1">R$ 406/ano</div>
             </div>
             <p className="text-gray-600 mb-6">Ideal para começar</p>
             <ul className="space-y-3 text-left mb-8">
@@ -192,30 +189,27 @@ export default function HomePage() {
               </li>
             </ul>
             <Link href="/pricing?plan=basic">
-              <Button className="w-full" variant="outline">
+              <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:opacity-90 font-semibold">
                 Escolher Plano
               </Button>
             </Link>
           </div>
 
-          {/* Plano Profissional */}
+          {/* Plano Pro */}
           <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-8 rounded-2xl shadow-2xl text-white text-center transform scale-105 relative">
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-yellow-400 text-gray-900 text-sm font-bold rounded-full">
               MAIS POPULAR
             </div>
-            <h3 className="text-2xl font-bold mb-2">Profissional</h3>
+            <h3 className="text-2xl font-bold mb-2">Pro</h3>
             <div className="mb-2">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-white/60 line-through text-lg">R$ 79,90</span>
-              </div>
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-4xl font-bold">R$ 59,90</span>
+                <span className="text-4xl font-bold">R$ 49,90</span>
                 <span className="text-white/90">/mês</span>
               </div>
             </div>
             <div className="mb-6">
-              <span className="text-sm text-yellow-300 font-semibold">Economize R$ 240/ano</span>
-              <div className="text-xs text-white/70 mt-1">ou R$ 718,80/ano</div>
+              <span className="text-sm text-yellow-300 font-semibold">20% desconto anual</span>
+              <div className="text-xs text-white/70 mt-1">R$ 479/ano</div>
             </div>
             <p className="text-white/90 mb-6">Para crescimento</p>
             <ul className="space-y-3 text-left mb-8">
@@ -244,8 +238,8 @@ export default function HomePage() {
                 <span className="text-sm">Suporte prioritário</span>
               </li>
             </ul>
-            <Link href="/pricing?plan=professional">
-              <Button className="w-full bg-white text-blue-600 hover:bg-gray-100 font-bold">
+            <Link href="/pricing?plan=pro">
+              <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:opacity-90 font-bold">
                 Escolher Plano
               </Button>
             </Link>
@@ -256,22 +250,19 @@ export default function HomePage() {
             <h3 className="text-2xl font-bold mb-2">Premium</h3>
             <div className="mb-2">
               <div className="flex items-baseline justify-center gap-1">
-                <span className="text-gray-400 line-through text-lg">R$ 149,90</span>
-              </div>
-              <div className="flex items-baseline justify-center gap-1">
-                <span className="text-4xl font-bold text-purple-600">R$ 127,90</span>
+                <span className="text-4xl font-bold text-purple-600">R$ 54,90</span>
                 <span className="text-gray-600">/mês</span>
               </div>
             </div>
             <div className="mb-6">
-              <span className="text-sm text-green-600 font-semibold">Economize R$ 264/ano</span>
-              <div className="text-xs text-gray-500 mt-1">ou R$ 1.534,80/ano</div>
+              <span className="text-sm text-green-600 font-semibold">25% desconto anual</span>
+              <div className="text-xs text-gray-500 mt-1">R$ 493/ano</div>
             </div>
             <p className="text-gray-600 mb-6">Solução completa</p>
             <ul className="space-y-3 text-left mb-8">
               <li className="flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                <span className="text-sm">Tudo do Profissional</span>
+                <span className="text-sm">Tudo do Pro</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
@@ -295,7 +286,7 @@ export default function HomePage() {
               </li>
             </ul>
             <Link href="/pricing?plan=premium">
-              <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold">
+              <Button className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white hover:opacity-90 font-bold">
                 Escolher Plano
               </Button>
             </Link>
@@ -334,7 +325,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t bg-white py-8">
         <div className="container mx-auto px-4 text-center text-gray-600">
-          <p>© 2024 AgendaPro. Sistema de agendamento inteligente com IA.</p>
+          <p>© 2024 AgendAI Pro. Sistema de agendamento inteligente com IA.</p>
         </div>
       </footer>
     </div>
